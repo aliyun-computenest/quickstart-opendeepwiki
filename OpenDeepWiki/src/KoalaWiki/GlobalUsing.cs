@@ -1,0 +1,16 @@
+﻿global using KoalaWiki.CodeMap;
+global using KoalaWiki.Core.DataAccess;
+global using KoalaWiki.DataMigration;
+global using KoalaWiki.Extensions;
+global using KoalaWiki.Git;
+global using KoalaWiki.Infrastructure;
+global using KoalaWiki.KoalaWarehouse;
+global using KoalaWiki.MCP;
+global using KoalaWiki.Options;
+global using KoalaWiki.Services;
+global using Mapster;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Http.Features;
+global using Microsoft.IdentityModel.Tokens;
+global using Scalar.AspNetCore;
+global using Serilog;

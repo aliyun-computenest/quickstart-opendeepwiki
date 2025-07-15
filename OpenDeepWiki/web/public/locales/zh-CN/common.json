@@ -1,0 +1,372 @@
+{
+  "title": "OpenDeekWiki - AI驱动的代码知识库",
+  "description": "OpenDeekWiki 是参考DeepWiki作为灵感，基于 .NET 9 和 Semantic Kernel 开发的开源项目。它旨在帮助开发者更好地理解和使用代码库，提供代码分析、文档生成等功能。",
+  "header": {
+    "github": "GitHub"
+  },
+  "home": {
+    "title": "AI驱动的代码知识库",
+    "subtitle": "OpenDeepWiki 是参考DeepWiki作为灵感，基于 .NET 9 和 Semantic Kernel 开发的开源项目。它旨在帮助开发者更好地理解和使用代码库，提供代码分析、文档生成等功能。",
+    "add_repo_button": "添加",
+    "query_last_repo_button": "查询",
+    "badge": {
+      "ai_powered": "AI驱动"
+    },
+    "features": {
+      "fast_conversion": {
+        "title": "快速转换",
+        "description": "几分钟内将任何代码仓库转换为智能知识库"
+      },
+      "multi_language": {
+        "title": "多语言支持",
+        "description": "支持所有主流编程语言的代码分析"
+      },
+      "code_structure": {
+        "title": "代码结构图",
+        "description": "自动生成Mermaid图表，直观理解代码架构"
+      },
+      "ai_analysis": {
+        "title": "AI智能分析",
+        "description": "基于AI的代码分析和关系理解"
+      }
+    },
+    "stats": {
+      "total_repos": "仓库总数",
+      "processing_tasks": "处理中任务",
+      "completed_tasks": "已完成",
+      "git_repos": "Git仓库",
+      "total_repositories": "仓库总数",
+      "completed_repositories": "已完成",
+      "processing_repositories": "处理中",
+      "github_stars": "GitHub Stars"
+    },
+    "sponsors": {
+      "title": "感谢赞助商支持",
+      "antsk": {
+        "name": "AntSK",
+        "description": "大模型企业AI解决方案"
+      },
+      "302ai": {
+        "name": "302.AI",
+        "description": "AI应用开发平台"
+      },
+      "whuanle": {
+        "name": "痴者工良",
+        "description": "高级程序员劝退师，专注.NET、Go、AI技术分享"
+      }
+    },
+    "repo_list": {
+      "title": "仓库列表",
+      "total": "共 {{count}} 个",
+      "search_placeholder": "搜索仓库名称或地址",
+      "add_button": "添加仓库",
+      "empty": "暂无仓库数据",
+      "not_found": "没有找到与\"{{keyword}}\"相关的仓库",
+      "add_now": "立即添加"
+    },
+    "pagination": {
+      "total": "共 {{total}} 个仓库"
+    },
+    "tags": {
+      "open_source": "开源免费"
+    },
+    "messages": {
+      "repo_add_success": "仓库添加成功",
+      "repo_add_failed": "添加仓库失败: {{error}}",
+      "repo_add_error": "添加仓库出错，请稍后重试",
+      "unknown_error": "未知错误"
+    }
+  },
+  "repository": {
+    "status": {
+      "pending": "待处理",
+      "processing": "处理中",
+      "completed": "已完成",
+      "cancelled": "已取消",
+      "unauthorized": "未授权",
+      "failed": "已失败",
+      "unknown": "未知状态"
+    },
+    "form": {
+      "title": "添加仓库",
+      "submit_type": "提交方式",
+      "git_repo": "Git仓库",
+      "custom_repo": "自定义仓库",
+      "upload_zip": "上传压缩包",
+      "repo_address": "仓库地址",
+      "repo_address_placeholder": "https://github.com/username/repository",
+      "enable_auth": "启用私有仓库认证",
+      "auth_tooltip": "如果是私有仓库，请启用此选项并填写凭据",
+      "git_username": "Git用户名",
+      "git_username_placeholder": "请输入Git用户名",
+      "git_password": "Git密码/访问令牌",
+      "git_password_placeholder": "请输入Git密码或访问令牌",
+      "git_token_tip": "对于GitHub，推荐使用Personal Access Token",
+      "upload_info": "压缩包上传说明",
+      "upload_formats": "支持的格式：zip、gz、tar、br",
+      "org_name": "组织名称",
+      "org_name_placeholder": "请输入组织名称",
+      "repo_name": "仓库名称",
+      "repo_name_placeholder": "请输入仓库名称",
+      "upload_zip_file": "上传压缩包",
+      "upload_tip": "只支持zip、gz、tar、br格式的压缩文件",
+      "drag_text": "点击或拖拽文件到此区域上传",
+      "submit": "提交",
+      "cancel": "取消",
+      "success_message": "仓库添加成功",
+      "error_message": "添加失败，请重试",
+      "upload_required": "请上传压缩包文件",
+      "invalid_file": "文件对象无效，请重新上传",
+      "upload_success": "压缩包上传成功",
+      "upload_failed": "上传失败，请重试",
+      "format_error": "只支持 zip、gz、tar、br 格式的压缩文件",
+      "address_required": "请输入仓库地址",
+      "username_required": "请输入Git用户名",
+      "password_required": "请输入Git密码或访问令牌",
+      "org_required": "请输入组织名称",
+      "repo_name_required": "请输入仓库名称",
+      "branch": "分支",
+      "branch_tooltip": "选择要使用的仓库分支，点击加载分支按钮获取所有可用分支",
+      "branch_required": "请选择分支",
+      "branch_placeholder": "选择分支",
+      "branch_input_placeholder": "请输入分支名称",
+      "load_branches": "加载分支",
+      "branch_loaded": "分支列表加载成功，已选择默认分支",
+      "branch_load_failed": "获取分支列表失败，请手动输入分支名",
+      "branch_load_error": "获取分支列表出错，请检查仓库地址和认证信息",
+      "auth_required": "已启用认证，请先输入用户名和密码/令牌",
+      "manual_input": "手动输入",
+      "use_select": "使用选择器",
+      "default_branch_loaded": "已自动选择仓库默认分支: {{branch}}",
+      "no_default_branch": "未找到默认分支，已选择第一个分支"
+    },
+    "last_repo": {
+      "title": "查询仓库",
+      "address_label": "仓库地址",
+      "address_placeholder": "请输入您之前提交过的仓库地址",
+      "address_required": "请输入仓库地址",
+      "search": "查询",
+      "searching": "正在查询仓库信息...",
+      "not_found_title": "未找到仓库信息",
+      "check_address": "请检查输入的仓库地址是否正确",
+      "query_failed": "查询失败: ",
+      "not_found": "未找到相关仓库",
+      "error": "查询仓库出错，请稍后重试",
+      "result": "查询结果",
+      "repo_name": "仓库名称",
+      "repo_address": "仓库地址",
+      "repo_info": "仓库信息",
+      "error_info": "错误信息"
+    }
+  },
+  "footer": {
+    "product": "产品",
+    "features": "功能介绍",
+    "guide": "使用指南",
+    "changelog": "更新日志",
+    "resources": "资源",
+    "docs": "开发文档",
+    "api": "API参考",
+    "faq": "常见问题",
+    "company": "关于",
+    "about": "关于我们",
+    "contact": "联系方式",
+    "join": "加入我们",
+    "copyright": "© {{year}} OpenDeepWiki. All rights reserved.",
+    "powered_by": "Powered by",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "changelog": {
+    "title": "更新日志",
+    "github_message": "可在 GitHub 上查看完整提交历史",
+    "commit": "提交",
+    "types": {
+      "feature": "新功能",
+      "fix": "修复",
+      "docs": "文档",
+      "refactor": "重构",
+      "chore": "杂项",
+      "style": "样式",
+      "perf": "性能",
+      "test": "测试",
+      "build": "构建",
+      "ci": "CI/CD",
+      "revert": "回滚"
+    }
+  },
+  "organization": {
+    "title": "{{name}} 的代码仓库",
+    "description": "{{name}} 的代码仓库知识库，一站式查看所有代码文档",
+    "default_description": "{{name}} 是一个代码仓库集合，提供了各种项目的源代码和文档。",
+    "tags": {
+      "organization": "组织",
+      "personal_user": "个人用户",
+      "organization_account": "组织账户"
+    },
+    "stats": {
+      "total_repositories": "仓库总数",
+      "git_repos": "Git仓库",
+      "completed_repos": "已完成",
+      "last_updated": "最近更新"
+    },
+    "info": {
+      "title": "详细信息",
+      "created_time": "创建时间",
+      "last_update": "最近更新",
+      "type": "类型",
+      "location": "位置",
+      "website": "网站",
+      "bio": "简介",
+      "unknown": "未知"
+    },
+    "docs": {
+      "title": "文档概览",
+      "about_title": "关于 {{name}}",
+      "quick_links": "快速链接",
+      "github_homepage": "GitHub 主页",
+      "visit_github": "访问 {{name}} 的 GitHub 主页",
+      "popular_repo": "热门仓库",
+      "view_latest_docs": "查看最新更新的仓库文档",
+      "usage_guide": "使用指南",
+      "usage_description": "您可以通过点击下方仓库列表中的仓库查看详细文档。每个仓库都包含了由 AI 自动生成的全面文档，帮助您理解代码结构和工作原理。",
+      "doc_includes": "文档内容包括：",
+      "code_structure": "代码结构解析",
+      "code_structure_desc": "详细说明项目的组织结构和主要组件",
+      "api_docs": "API 文档",
+      "api_docs_desc": "关键功能和接口的详细说明",
+      "implementation": "实现细节",
+      "implementation_desc": "核心算法和设计模式的实现说明",
+      "examples": "使用示例",
+      "examples_desc": "如何使用和集成项目的示例"
+    },
+    "sidebar": {
+      "doc_stats": "文档统计",
+      "total_repos": "仓库总数",
+      "completed_docs": "已完成文档",
+      "recent_updates": "最近更新"
+    },
+    "repo_list": {
+      "title": "仓库列表",
+      "search_placeholder": "搜索仓库名称或地址",
+      "empty_message": "{{owner}} 组织下暂无仓库数据",
+      "not_found": "没有找到与\"{{keyword}}\"相关的仓库"
+    },
+    "tooltips": {
+      "visit_github": "访问 GitHub",
+      "github_homepage": "GitHub 主页"
+    },
+    "errors": {
+      "fetch_org_info": "获取组织信息出错:",
+      "fetch_repos": "获取仓库列表出错:"
+    }
+  },
+  "language": {
+    "zh-CN": "中文(简体)",
+    "en-US": "英文(美国)",
+    "zh-TW": "中文(繁体)",
+    "ja": "日语",
+    "ko": "韩语",
+    "de": "德语",
+    "fr": "法语",
+    "es": "西班牙语",
+    "it": "意大利语",
+    "pt": "葡萄牙语",
+    "ru": "俄语",
+    "ar": "阿拉伯语",
+    "hi": "印地语",
+    "nl": "荷兰语",
+    "tr": "土耳其语",
+    "vi": "越南语",
+    "id": "印尼语",
+    "th": "泰语",
+    "asia": "亚洲",
+    "europe": "欧美",
+    "middle_east": "中东"
+  },
+  "repository_layout": {
+    "branch": {
+      "select_placeholder": "选择分支"
+    },
+    "header": {
+      "add_mcp": "添加MCP",
+      "last_updated": "最近更新: "
+    },
+    "mcp": {
+      "modal_title": "MCP接入教程",
+      "support_message": "OpenDeepWiki支持MCP（ModelContextProtocol）",
+      "features": {
+        "single_repo": "支持单仓库提供MCPServer，针对单个仓库进行分析",
+        "analysis": "通过OpenDeepWiki作为MCPServer，您可以方便地对开源项目进行分析和理解"
+      },
+      "config": {
+        "title": "使用配置",
+        "cursor_usage": "下面是Cursor的使用方式：",
+        "copy_success": "配置已复制到剪贴板",
+        "copy_failed": "复制失败，请手动复制",
+        "copy_tooltip": "复制配置",
+        "copied_tooltip": "已复制",
+        "description_title": "配置说明：",
+        "owner_desc": "是仓库组织或拥有者的名称",
+        "name_desc": "是仓库的名称"
+      },
+      "test": {
+        "title": "测试案例",
+        "description": "添加好仓库以后尝试进行测试提问（注意，请保证仓库已经处理完成）：",
+        "question": "OpenDeepWiki是什么？",
+        "image_alt": "MCP测试效果"
+      }
+    },
+    "sidebar": {
+      "export": {
+        "button": "导出Markdown",
+        "modal_title": "导出Markdown",
+        "modal_content": "是否将当前文档导出为Markdown格式？",
+        "ok_text": "导出",
+        "cancel_text": "取消",
+        "failed_message": "导出失败，请稍后再试。",
+        "success_message": "文档导出成功！",
+        "downloading": "正在下载..."
+      },
+      "overview": "概览",
+      "mindmap": "思维导图",
+      "changelog": "更新日志"
+    },
+    "update_tooltip": "最近更新: ",
+    "time": {
+      "just_updated": "刚刚更新",
+      "hour_ago": "{{count}}小时前",
+      "hours_ago": "{{count}}小时前",
+      "day_ago": "{{count}}天前",
+      "days_ago": "{{count}}天前",
+      "unknown": "未知"
+    }
+  },
+  "auth": {
+    "login": "登录",
+    "logout": "退出登录",
+    "logout_success": "退出登录成功",
+    "user": "用户",
+    "settings": "设置",
+    "admin_panel": "管理面板",
+    "joined": "加入于",
+    "role": {
+      "admin": "管理员",
+      "editor": "编辑者",
+      "user": "用户"
+    }
+  },
+  "page": {
+    "error": {
+      "title": "页面加载失败",
+      "unable_to_load": "无法加载仓库页面",
+      "repo_not_exist": "可能不存在或暂时无法访问",
+      "error_detail": "错误详情: {{error}}",
+      "unknown_error": "未知错误",
+      "back_to_owner": "返回 {{owner}}",
+      "back_to_home": "返回首页",
+      "reload": "重新加载"
+    },
+    "ai_assistant": "{{name}} AI 助手"
+  }
+} 

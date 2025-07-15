@@ -1,0 +1,58 @@
+.ant-highlighter-shiki .shiki {
+    color: hsl(var(--muted)) !important;
+}
+
+/* 确保消息内容的样式 */
+.chat-message-content {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.6;
+}
+
+/* 代码块样式 - 保持简洁 */
+.chat-message-content pre {
+    background-color: hsl(var(--muted));
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+}
+
+.chat-message-content code {
+    background-color: hsl(var(--muted));
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* 图片样式优化 */
+.chat-message-content img {
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+/* 用户消息和助手消息的样式已在组件中处理 */
+
+/* 确保消息容器的一致性 */
+.chat-message-content * {
+    max-width: 100%;
+}
+
+/* 表格样式优化 */
+.chat-message-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.chat-message-content th,
+.chat-message-content td {
+    border: 1px solid hsl(var(--border));
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.chat-message-content th {
+    background-color: hsl(var(--muted));
+    font-weight: 600;
+}

@@ -1,0 +1,46 @@
+{
+  "name": "KoalaWiki - 专业技术文档平台",
+  "short_name": "KoalaWiki",
+  "description": "专业的技术文档平台，提供开源项目文档管理、API文档生成、知识库构建等服务",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1677ff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["productivity", "developer", "documentation"],
+  "icons": [
+  ],
+  "shortcuts": [
+    {
+      "name": "搜索文档",
+      "short_name": "搜索",
+      "description": "搜索技术文档和API参考",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "/favicon-32x32.png",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "浏览项目",
+      "short_name": "项目",
+      "description": "浏览开源项目文档",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/favicon-32x32.png",
+          "sizes": "32x32"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+} 

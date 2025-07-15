@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoalaWiki Chat Widget 测试</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>KoalaWiki Chat Widget 测试页面</h1>
+
+    <div class="content">
+        <p>这是一个简单的测试页面，展示了 KoalaWiki 聊天悬浮球组件的基本用法。</p>
+        <p>右下角应该会出现聊天悬浮球按钮。</p>
+    </div>
+
+    <script src="../public/koala-chat-widget.js"></script>
+
+    <script>
+        KoalaChatWidget.init({
+            appId: 'app_mcpx2xlc_udcn5c',
+            title: 'AI 助手',
+            apiUrl: 'https://opendeep.wiki',
+            theme: 'light'
+        });
+    </script>
+</body>
+</html>

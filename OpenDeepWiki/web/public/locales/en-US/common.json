@@ -1,0 +1,372 @@
+{
+  "title": "OpenDeekWiki - AI-Powered Code Knowledge Base",
+  "description": "OpenDeekWiki is an open-source project inspired by DeepWiki, built on .NET 9 and Semantic Kernel. It helps developers better understand and use code repositories, providing code analysis, documentation generation, and more.",
+  "header": {
+    "github": "GitHub"
+  },
+  "home": {
+    "title": "AI-Powered Code Knowledge Base",
+    "subtitle": "OpenDeepWiki is an open-source project inspired by DeepWiki, built on .NET 9 and Semantic Kernel. It helps developers better understand and use code repositories, providing code analysis, documentation generation, and more.",
+    "add_repo_button": "Add",
+    "query_last_repo_button": "Query",
+    "badge": {
+      "ai_powered": "AI-Powered"
+    },
+    "features": {
+      "fast_conversion": {
+        "title": "Fast Conversion",
+        "description": "Convert any code repository into an intelligent knowledge base within minutes"
+      },
+      "multi_language": {
+        "title": "Multi-Language Support",
+        "description": "Support code analysis for all mainstream programming languages"
+      },
+      "code_structure": {
+        "title": "Code Structure Diagram",
+        "description": "Automatically generate Mermaid charts for intuitive code architecture understanding"
+      },
+      "ai_analysis": {
+        "title": "AI Intelligent Analysis",
+        "description": "AI-based code analysis and relationship understanding"
+      }
+    },
+    "stats": {
+      "total_repos": "Total Repositories",
+      "processing_tasks": "Processing Tasks",
+      "completed_tasks": "Completed",
+      "git_repos": "Git Repositories",
+      "total_repositories": "Total Repositories",
+      "completed_repositories": "Completed",
+      "processing_repositories": "Processing",
+      "github_stars": "GitHub Stars"
+    },
+    "sponsors": {
+      "title": "Thanks to Our Sponsors",
+      "antsk": {
+        "name": "AntSK",
+        "description": "Enterprise AI Solutions for Large Models"
+      },
+      "302ai": {
+        "name": "302.AI",
+        "description": "AI Application Development Platform"
+      },
+      "whuanle": {
+        "name": "痴者工良",
+        "description": "Senior Developer & Tech Blogger, focusing on .NET, Go, AI"
+      }
+    },
+    "repo_list": {
+      "title": "Repository List",
+      "total": "Total: {{count}}",
+      "search_placeholder": "Search repositories",
+      "add_button": "Add Repository",
+      "empty": "No repositories found",
+      "not_found": "No repositories matching \"{{keyword}}\" found",
+      "add_now": "Add Now"
+    },
+    "pagination": {
+      "total": "Total {{total}} repositories"
+    },
+    "tags": {
+      "open_source": "Open Source & Free"
+    },
+    "messages": {
+      "repo_add_success": "Repository added successfully",
+      "repo_add_failed": "Failed to add repository: {{error}}",
+      "repo_add_error": "Error adding repository, please try again later",
+      "unknown_error": "Unknown error"
+    }
+  },
+  "repository": {
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "unauthorized": "Unauthorized",
+      "failed": "Failed",
+      "unknown": "Unknown Status"
+    },
+    "form": {
+      "title": "Add Repository",
+      "submit_type": "Submission Method",
+      "git_repo": "Git Repository",
+      "custom_repo": "Custom Repository",
+      "upload_zip": "Upload Archive",
+      "repo_address": "Repository Address",
+      "repo_address_placeholder": "https://github.com/username/repository",
+      "enable_auth": "Enable Private Repository Authentication",
+      "auth_tooltip": "If it's a private repository, please enable this option and fill in the credentials",
+      "git_username": "Git Username",
+      "git_username_placeholder": "Enter Git username",
+      "git_password": "Git Password/Access Token",
+      "git_password_placeholder": "Enter Git password or access token",
+      "git_token_tip": "For GitHub, Personal Access Token is recommended",
+      "upload_info": "Archive Upload Instructions",
+      "upload_formats": "Supported formats: zip, gz, tar, br",
+      "org_name": "Organization Name",
+      "org_name_placeholder": "Enter organization name",
+      "repo_name": "Repository Name",
+      "repo_name_placeholder": "Enter repository name",
+      "upload_zip_file": "Upload Archive",
+      "upload_tip": "Only zip, gz, tar, br formats are supported",
+      "drag_text": "Click or drag file to this area to upload",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "success_message": "Repository added successfully",
+      "error_message": "Failed to add, please try again",
+      "upload_required": "Please upload an archive file",
+      "invalid_file": "Invalid file object, please upload again",
+      "upload_success": "Archive uploaded successfully",
+      "upload_failed": "Upload failed, please try again",
+      "format_error": "Only zip, gz, tar, br formats are supported",
+      "address_required": "Please enter repository address",
+      "username_required": "Please enter Git username",
+      "password_required": "Please enter Git password or access token",
+      "org_required": "Please enter organization name",
+      "repo_name_required": "Please enter repository name",
+      "branch": "Branch",
+      "branch_tooltip": "Select the branch of the repository you want to use, click the Load Branches button to get all available branches",
+      "branch_required": "Please select a branch",
+      "branch_placeholder": "Select branch",
+      "branch_input_placeholder": "Enter branch name",
+      "load_branches": "Load Branches",
+      "branch_loaded": "Branch list loaded successfully, default branch selected",
+      "branch_load_failed": "Failed to get branch list, please enter branch name manually",
+      "branch_load_error": "Error getting branch list, please check repository address and authentication information",
+      "auth_required": "Authentication is enabled, please enter username and password/token first",
+      "manual_input": "Manual Input",
+      "use_select": "Use Selector",
+      "default_branch_loaded": "Repository default branch auto-selected: {{branch}}",
+      "no_default_branch": "No default branch found, selected first branch"
+    },
+    "last_repo": {
+      "title": "Query Repository",
+      "address_label": "Repository Address",
+      "address_placeholder": "Enter the repository address you've submitted before",
+      "address_required": "Please enter repository address",
+      "search": "Search",
+      "searching": "Searching for repository info...",
+      "not_found_title": "Repository Not Found",
+      "check_address": "Please check if the repository address is correct",
+      "query_failed": "Query failed: ",
+      "not_found": "No related repository found",
+      "error": "Error querying repository, please try again later",
+      "result": "Query Result",
+      "repo_name": "Repository Name",
+      "repo_address": "Repository Address",
+      "repo_info": "Repository Info",
+      "error_info": "Error Information"
+    }
+  },
+  "footer": {
+    "product": "Product",
+    "features": "Features",
+    "guide": "User Guide",
+    "changelog": "Changelog",
+    "resources": "Resources",
+    "docs": "Documentation",
+    "api": "API Reference",
+    "faq": "FAQ",
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "join": "Join Us",
+    "copyright": "© {{year}} OpenDeepWiki. All rights reserved.",
+    "powered_by": "Powered by",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "changelog": {
+    "title": "Changelog",
+    "github_message": "View complete commit history on GitHub",
+    "commit": "Commit",
+    "types": {
+      "feature": "Feature",
+      "fix": "Fix",
+      "docs": "Docs",
+      "refactor": "Refactor",
+      "chore": "Chore",
+      "style": "Style",
+      "perf": "Performance",
+      "test": "Test",
+      "build": "Build",
+      "ci": "CI/CD",
+      "revert": "Revert"
+    }
+  },
+  "organization": {
+    "title": "{{name}}'s Code Repositories",
+    "description": "{{name}}'s code repository knowledge base, view all code documentation in one place",
+    "default_description": "{{name}} is a collection of code repositories providing various project source codes and documentation.",
+    "tags": {
+      "organization": "Organization",
+      "personal_user": "Personal User",
+      "organization_account": "Organization Account"
+    },
+    "stats": {
+      "total_repositories": "Total Repositories",
+      "git_repos": "Git Repositories",
+      "completed_repos": "Completed",
+      "last_updated": "Last Updated"
+    },
+    "info": {
+      "title": "Details",
+      "created_time": "Created",
+      "last_update": "Last Update",
+      "type": "Type",
+      "location": "Location",
+      "website": "Website",
+      "bio": "Bio",
+      "unknown": "Unknown"
+    },
+    "docs": {
+      "title": "Documentation Overview",
+      "about_title": "About {{name}}",
+      "quick_links": "Quick Links",
+      "github_homepage": "GitHub Homepage",
+      "visit_github": "Visit {{name}}'s GitHub homepage",
+      "popular_repo": "Popular Repository",
+      "view_latest_docs": "View latest updated repository documentation",
+      "usage_guide": "Usage Guide",
+      "usage_description": "You can view detailed documentation by clicking on repositories in the list below. Each repository contains comprehensive AI-generated documentation to help you understand code structure and functionality.",
+      "doc_includes": "Documentation includes:",
+      "code_structure": "Code Structure Analysis",
+      "code_structure_desc": "Detailed explanation of project organization and main components",
+      "api_docs": "API Documentation",
+      "api_docs_desc": "Detailed description of key functions and interfaces",
+      "implementation": "Implementation Details",
+      "implementation_desc": "Implementation description of core algorithms and design patterns",
+      "examples": "Usage Examples",
+      "examples_desc": "Examples of how to use and integrate the project"
+    },
+    "sidebar": {
+      "doc_stats": "Documentation Statistics",
+      "total_repos": "Total Repositories",
+      "completed_docs": "Completed Documentation",
+      "recent_updates": "Recent Updates"
+    },
+    "repo_list": {
+      "title": "Repository List",
+      "search_placeholder": "Search repository name or address",
+      "empty_message": "No repository data found under {{owner}} organization",
+      "not_found": "No repositories matching \"{{keyword}}\" found"
+    },
+    "tooltips": {
+      "visit_github": "Visit GitHub",
+      "github_homepage": "GitHub Homepage"
+    },
+    "errors": {
+      "fetch_org_info": "Error fetching organization info:",
+      "fetch_repos": "Error fetching repository list:"
+    }
+  },
+  "language": {
+    "zh-CN": "Chinese (Simplified)",
+    "en-US": "English (US)",
+    "zh-TW": "Chinese (Traditional)",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "de": "German",
+    "fr": "French",
+    "es": "Spanish",
+    "it": "Italian",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ar": "Arabic",
+    "hi": "Hindi",
+    "nl": "Dutch",
+    "tr": "Turkish",
+    "vi": "Vietnamese",
+    "id": "Indonesian",
+    "th": "Thai",
+    "asia": "Asia",
+    "europe": "Europe & Americas",
+    "middle_east": "Middle East"
+  },
+  "repository_layout": {
+    "branch": {
+      "select_placeholder": "Select Branch"
+    },
+    "header": {
+      "add_mcp": "Add MCP",
+      "last_updated": "Last Updated: "
+    },
+    "mcp": {
+      "modal_title": "MCP Integration Tutorial",
+      "support_message": "OpenDeepWiki supports MCP (Model Context Protocol)",
+      "features": {
+        "single_repo": "Support single repository MCP Server for individual repository analysis",
+        "analysis": "Through OpenDeepWiki as MCP Server, you can easily analyze and understand open source projects"
+      },
+      "config": {
+        "title": "Usage Configuration",
+        "cursor_usage": "Here's how to use it with Cursor:",
+        "copy_success": "Configuration copied to clipboard",
+        "copy_failed": "Copy failed, please copy manually",
+        "copy_tooltip": "Copy Configuration",
+        "copied_tooltip": "Copied",
+        "description_title": "Configuration Description:",
+        "owner_desc": "The name of the repository organization or owner",
+        "name_desc": "The name of the repository"
+      },
+      "test": {
+        "title": "Test Case",
+        "description": "After adding the repository, try asking test questions (Note: please ensure the repository has been processed):",
+        "question": "What is OpenDeepWiki?",
+        "image_alt": "MCP Test Effect"
+      }
+    },
+    "sidebar": {
+      "export": {
+        "button": "Export Markdown",
+        "modal_title": "Export Markdown",
+        "modal_content": "Export current documentation as Markdown format?",
+        "ok_text": "Export",
+        "cancel_text": "Cancel",
+        "failed_message": "Export failed, please try again later.",
+        "success_message": "Documentation exported successfully!",
+        "downloading": "Downloading..."
+      },
+      "overview": "Overview",
+      "mindmap": "Mind Map",
+      "changelog": "Changelog"
+    },
+    "update_tooltip": "Last Updated: ",
+    "time": {
+      "just_updated": "Just updated",
+      "hour_ago": "{{count}} hour ago",
+      "hours_ago": "{{count}} hours ago",
+      "day_ago": "{{count}} day ago",
+      "days_ago": "{{count}} days ago",
+      "unknown": "Unknown"
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "logout_success": "Logout successful",
+    "user": "User",
+    "settings": "Settings",
+    "admin_panel": "Admin Panel",
+    "joined": "Joined",
+    "role": {
+      "admin": "Administrator",
+      "editor": "Editor",
+      "user": "User"
+    }
+  },
+  "page": {
+    "error": {
+      "title": "Page Load Failed",
+      "unable_to_load": "Unable to load repository page",
+      "repo_not_exist": "may not exist or is temporarily inaccessible",
+      "error_detail": "Error details: {{error}}",
+      "unknown_error": "Unknown error",
+      "back_to_owner": "Back to {{owner}}",
+      "back_to_home": "Back to Home",
+      "reload": "Reload"
+    },
+    "ai_assistant": "{{name}} AI Assistant"
+  }
+} 

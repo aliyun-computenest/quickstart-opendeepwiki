@@ -1,0 +1,304 @@
+name: 构建多平台Release包
+
+on:
+  push:
+    tags:
+      - 'v*'
+  # 允许在任何分支上手动触发
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '版本号 (例如: v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      ref:
+        description: '分支或标签 (默认: main)'
+        required: false
+        default: 'main'
+
+# 添加全局权限设置
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build-backend:
+    name: 构建后端 - ${{ matrix.os }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - os: windows
+            runner: windows-latest
+            runtime: win-x64
+            extension: .exe
+            archive: zip
+          - os: linux
+            runner: ubuntu-latest
+            runtime: linux-x64
+            extension: ''
+            archive: tar.gz
+          - os: linux-arm64
+            runner: ubuntu-latest
+            runtime: linux-arm64
+            extension: ''
+            archive: tar.gz
+          - os: macos
+            runner: macos-latest
+            runtime: osx-x64
+            extension: ''
+            archive: tar.gz
+          - os: macos-arm64
+            runner: macos-latest
+            runtime: osx-arm64
+            extension: ''
+            archive: tar.gz
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+      
+      - name: 设置 .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      
+      - name: 恢复依赖
+        run: dotnet restore KoalaWiki.sln
+      
+      - name: 构建后端
+        run: |
+          dotnet publish src/KoalaWiki/KoalaWiki.csproj `
+            -c Release `
+            -r ${{ matrix.runtime }} `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -o backend-${{ matrix.os }}
+        shell: pwsh
+      
+      - name: 复制启动脚本 (Windows)
+        if: matrix.os == 'windows'
+        run: |
+          copy "start-backend.bat" "backend-${{ matrix.os }}/"
+          echo # KoalaWiki 后端 > "backend-${{ matrix.os }}/README.md"
+          echo. >> "backend-${{ matrix.os }}/README.md"
+          echo ## 启动说明 >> "backend-${{ matrix.os }}/README.md"
+          echo 双击运行 start-backend.bat >> "backend-${{ matrix.os }}/README.md"
+          echo. >> "backend-${{ matrix.os }}/README.md"
+          echo ## 配置说明 >> "backend-${{ matrix.os }}/README.md"
+          echo 请在 start-backend.bat 中配置必要的环境变量 >> "backend-${{ matrix.os }}/README.md"
+        shell: cmd
+      
+      - name: 复制启动脚本 (Unix)
+        if: matrix.os != 'windows'
+        run: |
+          cp start-backend.sh backend-${{ matrix.os }}/
+          chmod +x backend-${{ matrix.os }}/start-backend.sh
+          
+          # 创建README文件
+          cat > backend-${{ matrix.os }}/README.md << 'EOF'
+          # KoalaWiki 后端
+          
+          ## 启动说明
+          
+          ```bash
+          chmod +x start-backend.sh
+          ./start-backend.sh
+          ```
+          
+          ## 配置说明
+          
+          请在 start-backend.sh 中配置必要的环境变量：
+          - CHAT_API_KEY: AI模型的API密钥
+          - CHAT_MODEL: 使用的AI模型名称  
+          - ENDPOINT: AI服务端点地址
+          - MODEL_PROVIDER: 模型提供商
+          
+          ## 访问地址
+          
+          启动后API服务地址: http://localhost:5085
+          EOF
+      
+      - name: 创建压缩包 (Windows)
+        if: matrix.os == 'windows'
+        run: |
+          Compress-Archive -Path "backend-${{ matrix.os }}/*" -DestinationPath "koala-wiki-backend-${{ matrix.os }}.zip"
+        shell: powershell
+      
+      - name: 创建压缩包 (Unix)
+        if: matrix.os != 'windows'
+        run: |
+          tar -czf koala-wiki-backend-${{ matrix.os }}.tar.gz -C backend-${{ matrix.os }} .
+      
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-${{ matrix.os }}
+          path: koala-wiki-backend-${{ matrix.os }}.${{ matrix.archive }}
+
+  build-frontend:
+    name: 构建前端
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+      
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+      
+      - name: 安装依赖
+        working-directory: web
+        run: npm ci
+      
+      - name: 构建前端
+        working-directory: web
+        run: npm run build
+      
+      - name: 准备前端文件
+        run: |
+          mkdir -p frontend-dist
+          cp -r web/.next frontend-dist/
+          cp start-frontend.sh frontend-dist/
+          cp start-frontend.bat frontend-dist/
+          chmod +x frontend-dist/start-frontend.sh
+          
+          # 创建README文件
+          cat > frontend-dist/README.md << 'EOF'
+          # KoalaWiki 前端
+          
+          ## 启动说明
+          
+          ### Windows
+          双击运行 `start-frontend.bat`
+          
+          ### Linux/macOS
+          ```bash
+          chmod +x start-frontend.sh
+          ./start-frontend.sh
+          ```
+          
+          ## 系统要求
+          - Node.js 18+ 
+          
+          ## 访问地址
+          启动后访问: http://localhost:3000
+          EOF
+      
+      - name: 创建前端压缩包
+        run: |
+          tar -czf koala-wiki-frontend.tar.gz -C frontend-dist .
+      
+      - name: 上传前端构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: koala-wiki-frontend.tar.gz
+
+  create-release:
+    name: 创建Release
+    needs: [build-backend, build-frontend]
+    runs-on: ubuntu-latest
+    
+    # 为此任务添加明确的权限
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+      
+      - name: 下载所有构建产物
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      
+      - name: 获取版本号
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            # 从标签名称中提取版本号
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: 生成Release说明
+        id: release_notes
+        run: |
+          cat > release_notes.md << 'EOF'
+          ## KoalaWiki ${{ steps.get_version.outputs.version }}
+          
+          ### 📦 下载说明
+          
+          #### 后端程序
+          - **Windows**: `koala-wiki-backend-windows.zip` - 适用于Windows x64系统
+          - **Linux**: `koala-wiki-backend-linux.tar.gz` - 适用于Linux x64系统  
+          - **Linux ARM64**: `koala-wiki-backend-linux-arm64.tar.gz` - 适用于Linux ARM64系统
+          - **macOS**: `koala-wiki-backend-macos.tar.gz` - 适用于macOS x64系统
+          - **macOS ARM64**: `koala-wiki-backend-macos-arm64.tar.gz` - 适用于macOS ARM64系统
+          
+          #### 前端程序
+          - **通用**: `koala-wiki-frontend.tar.gz` - 适用于所有平台的前端静态文件
+          
+          ### 🚀 快速开始
+          
+          1. 下载对应平台的后端程序包
+          2. 下载前端程序包
+          3. 解压到同一目录
+          4. 运行启动脚本：
+             - Windows: 双击 `start-backend.bat` 和 `start-frontend.bat`
+             - Linux/macOS: 执行 `./start-backend.sh` 和 `./start-frontend.sh`
+          
+          ### 📋 系统要求
+          
+          - 后端：自包含运行时，无需额外安装.NET
+          - 前端：需要Node.js 18+环境
+          
+          ### 🔧 配置说明
+          
+          首次运行前请参考项目文档进行必要的配置。
+          
+          ### 🌐 访问地址
+          
+          - 后端API: http://localhost:5085
+          - 前端界面: http://localhost:3000
+          
+          ### ⚙️ 环境变量配置
+          
+          在启动脚本中配置以下关键环境变量：
+          - `CHAT_API_KEY`: AI模型的API密钥
+          - `CHAT_MODEL`: 使用的AI模型名称
+          - `ENDPOINT`: AI服务端点地址
+          - `MODEL_PROVIDER`: 模型提供商(OpenAI/AzureOpenAI/Anthropic)
+          EOF
+      
+      - name: 创建Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          name: KoalaWiki ${{ steps.get_version.outputs.version }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          # 如果手动触发时必须提前创建标签
+          target_commitish: ${{ github.event.inputs.ref || github.sha }}
+          files: |
+            artifacts/backend-windows/koala-wiki-backend-windows.zip
+            artifacts/backend-linux/koala-wiki-backend-linux.tar.gz
+            artifacts/backend-linux-arm64/koala-wiki-backend-linux-arm64.tar.gz
+            artifacts/backend-macos/koala-wiki-backend-macos.tar.gz
+            artifacts/backend-macos-arm64/koala-wiki-backend-macos-arm64.tar.gz
+            artifacts/frontend/koala-wiki-frontend.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

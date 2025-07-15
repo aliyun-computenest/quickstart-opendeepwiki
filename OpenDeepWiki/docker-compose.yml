@@ -1,0 +1,56 @@
+﻿services:
+  koalawiki:
+    image: crpi-j9ha7sxwhatgtvj4.cn-shenzhen.personal.cr.aliyuncs.com/koala-ai/koala-wiki
+    environment:
+      - KOALAWIKI_REPOSITORIES=/repositories
+      - TASK_MAX_SIZE_PER_USER=5 # 每个用户AI处理文档生成的最大数量
+      - REPAIR_MERMAID=1 # 是否进行Mermaid修复，1修复，其余不修复
+      - CHAT_MODEL=DeepSeek-V3 # 必须要支持function的模型
+      - ANALYSIS_MODEL= # 分析模型，用于生成仓库目录结构，这个很重要，模型越强，生成的目录结构越好，为空则使用ChatModel
+                        # 分析模型建议使用GPT-4.1  , CHAT模型可以用其他模型生成文档,以节省 token 开销
+      - CHAT_API_KEY= #您的APIkey
+      - LANGUAGE= # 设置生成语言默认为“中文”, 英文可以填写 English 或 英文
+      - ENDPOINT=https://api.token-ai.cn/v1
+      - DB_TYPE=sqlite
+      - DB_CONNECTION_STRING=Data Source=/data/KoalaWiki.db
+      - UPDATE_INTERVAL=5 # 仓库增量更新间隔，单位天
+      - EnableSmartFilter=true # 是否启用智能过滤，这可能影响AI得到仓库的文件目录
+      - ENABLE_INCREMENTAL_UPDATE=true # 是否启用增量更新
+      - ENABLE_CODED_DEPENDENCY_ANALYSIS=false # 是否启用代码依赖分析？这可能会对代码的质量产生影响。
+      - ENABLE_WAREHOUSE_FUNCTION_PROMPT_TASK=false # 是否启用MCP Prompt生成
+      - ENABLE_WAREHOUSE_DESCRIPTION_TASK=false # 是否启用仓库Description生成
+      - OTEL_SERVICE_NAME=koalawiki
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
+    volumes:
+      - ./repositories:/app/repositories
+      - ./data:/data
+    build:
+      context: .
+      dockerfile: src/KoalaWiki/Dockerfile
+      
+  koalawiki-web:
+    image: crpi-j9ha7sxwhatgtvj4.cn-shenzhen.personal.cr.aliyuncs.com/koala-ai/koala-wiki-web
+    environment:
+      - NEXT_PUBLIC_API_URL=http://koalawiki:8080 # 用于提供给server的地址
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      
+  nginx: # 需要nginx将前端和后端代理到一个端口
+    image: crpi-j9ha7sxwhatgtvj4.cn-shenzhen.personal.cr.aliyuncs.com/koala-ai/nginx:alpine
+    ports:
+      - 8090:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - koalawiki
+      - koalawiki-web
+  
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard
+    container_name: aspire-dashboard
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - Dashboard:ApplicationName=Aspire
