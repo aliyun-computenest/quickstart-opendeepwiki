@@ -1,40 +1,81 @@
 Service:
   RegionId: cn-hangzhou
   DeployType: ros
+  OperationMetadata:
+    StatusOperationConfigs:
+    - TemplateName: ECS单机版
+      SupportOperations:
+      - Start
+      - Stop
+      - Restart
+    SupportBackup: true
+    ModifyParametersConfig:
+    - TemplateName: ECS单机版
+      Operation:
+      - Name: 变更ECS实例规格
+        Description: 变更ECS实例规格
+        Type: Custom
+        Parameters:
+        - EcsInstanceType
+      - Name: 变更ECS实例密码
+        Description: 变更ECS实例密码
+        Type: Custom
+        Parameters:
+        - InstancePassword
+  UpgradeMetadata:
+    Description: 升级
+    SupportUpgradeFromVersions: []
+    SupportRollback: true
+    UpgradeComponents:
+    - Configuration
+    - Resource
   DeployMetadata:
-    ServiceInstanceNameRule:
-      Prefix: opendeepwiki
     SupplierDeployMetadata:
-      ArtifactRelation:
-        'centos_7_9_x64_20G_alibase_20240403.vhd':
-          ArtifactId: ${Artifact.EcsImage.ArtifactId}
-          ArtifactVersion: ${Artifact.EcsImage.ArtifactVersion}
-    TemplateConfigs:
-      - Name: 单机版
+      SupplierTemplateConfigs:
+      - Name: ECS单机版
         Url: 'ros_templates/template.yaml'
+        ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
+        AllowedRegions:
+        - ap-southeast-1
+      ArtifactRelation:
+        ecs_image_quickstart-opendeepwiki:
+          ArtifactId: ${Artifact.EcsImage.ArtifactId}
+          ArtifactVersion: draft
+    TemplateConfigs:
+    - Name: ECS单机版
+      Url: 'ros_templates/template.yaml'
+      ArchitectureDiagramUrl: 'resources/architecture/architecture.jpg'
+      AllowedRegions:
+      - ap-southeast-1
   ServiceType: private
   ServiceInfo:
-    Locale: zh-CN
-    ShortDescription: opendeepwiki deploy
-    Image: 'resources/icons/service_logo.png'
+    # 英文版可以再配置Locale为en-US的服务信息
+  - Locale: zh-CN
+    Name: OpenDeepWiki社区版
+    ShortDescription: OpenDeepWiki是一个开源项目，灵感来源于DeepWiki，基于.NET 9和Semantic Kernel开发。旨在帮助开发者更好地理解和利用代码库，提供代码分析、文档生成和知识图谱构建等功能。
+    Image: 
+      https://service-info-public.oss-cn-hangzhou.aliyuncs.com/1853370294850618/service-image/68b39535-7c48-4447-a764-6eccd248b7bf.png
+    Softwares: []
 Artifact:
   EcsImage:
     ArtifactType: EcsImage
-    ArtifactName: opendeepwiki
-    Description: opendeepwiki
-    ArtifactProperty:
-      RegionId: ${ImageBuilder.EcsImage.RegionId}
-      ImageId: ${ImageBuilder.EcsImage.SourceImageId}
-ImageBuilder:
-  EcsImage:
-    RegionId: ap-southeast-1
-    # 使用最新的LTS版本Alibaba Cloud Linux
-    SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
-    SystemDiskSize: 40
-    InstanceType: ecs.c6.large
-    InternetMaxBandwidthOut: 10
-    CommandType: RunShellScript
-    Timeout: 10800
-    Tags: [ ]
-    CommandContent: |-
-        #!/bin/bash
+    ArtifactName: ecs_image_quickstart-opendeepwiki
+    Description: quickstart-opendeepwiki EcsImage
+    SupportRegionIds:
+    - ap-southeast-1
+    ArtifactBuildProperty:
+      CodeRepo:
+        Platform: github
+        Owner: Alicloud-ComputeNest
+        RepoName: aliyun-computenest/quickstart-opendeepwiki
+        Branch: main
+      RegionId: ap-southeast-1
+      CommandType: RunShellScript
+      CommandContent: |-
+        mkdir -p /root/application
+        if [ -e "/root/code/.env" ]; then cp -r "/root/code/.env" "/root/application/"; fi
+        if [ -e "/root/code/OpenDeepWiki" ]; then cp -r "/root/code/OpenDeepWiki" "/root/application/"; fi
+        cd /root/application
+        sed -i 's/pull_policy: always/pull_policy: if_not_present/g' OpenDeepWiki/docker-compose.yml
+        docker compose -f OpenDeepWiki/docker-compose.yml build 
+        docker compose -f OpenDeepWiki/docker-compose.yml pull 2>&1 | stdbuf -oL grep -viE 'Downloading|sha256|extracting|KiB|Downloaded' || true;

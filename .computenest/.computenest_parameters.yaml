@@ -1,0 +1,12 @@
+RuntimeType: Container
+ServiceType: private
+ArtifactSourceType: DockerCompose
+ServiceBuildRegion: ap-southeast-1
+RepoName: aliyun-computenest/quickstart-opendeepwiki
+DockerComposeEnvPath: .env
+RegionId: cn-hangzhou
+CustomParameters: ''
+DockerComposeYamlPath: OpenDeepWiki/docker-compose.yml
+Owner: Alicloud-ComputeNest
+Branch: main
+Platform: github
