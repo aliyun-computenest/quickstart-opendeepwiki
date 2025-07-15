@@ -8,7 +8,7 @@
       - CHAT_MODEL=DeepSeek-V3 # 必须要支持function的模型
       - ANALYSIS_MODEL= # 分析模型，用于生成仓库目录结构，这个很重要，模型越强，生成的目录结构越好，为空则使用ChatModel
                         # 分析模型建议使用GPT-4.1  , CHAT模型可以用其他模型生成文档,以节省 token 开销
-      - CHAT_API_KEY= #您的APIkey
+      - CHAT_API_KEY= ${CHAT_API_KEY}
       - LANGUAGE= # 设置生成语言默认为“中文”, 英文可以填写 English 或 英文
       - ENDPOINT=https://api.token-ai.cn/v1
       - DB_TYPE=sqlite
